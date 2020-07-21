@@ -25,8 +25,8 @@
   [l2][u2]*V[l2][u2]));}c[i][j]=dl;}}loop{U[i][j]+=c[i][
  j];int uv=U[i][j];V[i][j]=(uv<=3&&uv>=0)*V[i][j]+(uv>3)
 ;}if(iter%1000==0){int sdu=0;int mxu=0;loop{sdu+=abs(c[i]
- [j]);mxu=max(mxu,abs(U[     i][j]));}if(mxu>1000||iter >
-   250000){return 0;         }li=(li+1)%8;printf("Lookin"
+ [j]);mxu=max(mxu,abs(U[     i][j]));}if(mxu> 250||iter >
+   300000){return 0;         }li=(li+1)%8;printf("Lookin"
     "g for a To"            "ur %c%c%c\r",lh[(li+2)%8],lh
      [(li+1)%8             ],lh[li]); fflush(stdout);if(0
        -sdu              ==0){int tot=0;loop{tot+=V[i][j]
