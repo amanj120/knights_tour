@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <immintrin.h>
-#include <stdlib.h>
 #include <time.h>
 
 #define at(i,j) [(i*64+j)]
 
-int run(int N) {
+static clock_t start, end;
+static int failed_runs = 1;
+
+static int run(/*int N*/) {
 
 	int8_t d[4096] 	__attribute__ ((aligned (32)));
 	int8_t u[4096] 	__attribute__ ((aligned (32)));
@@ -18,8 +20,7 @@ int run(int N) {
 	const __m256i thre = _mm256_set1_epi8(3);
 	const __m256i one = _mm256_set1_epi8(0x01);
 
-	__m256i sjl;
-	__m256i sjr;
+	__m256i sjl, sjr;
 
 	for(int i = 0; i < 64; i++) { //initialize
 		for(int j = 0; j < 64; j++) { 
@@ -38,10 +39,9 @@ int run(int N) {
 		}
 	}
 
-	long max_num_iterations = (long)(N) * 10000l;
+	// long max_num_iterations = (long)(N) * 10000l;
 
-	for (int iteration = 0; iteration < max_num_iterations; iteration++)
-	{
+	for (int x = 0x4000; x < 0xfa57; x++) { //~47,000
 
 		sjl = _mm256_set1_epi8(0);
 		sjr = _mm256_set1_epi8(0);
@@ -56,15 +56,7 @@ int run(int N) {
 
 
 		for(int i=0; i<4096; i+=0x40) {
-			int8_t si_term = s[i/64];
-			// const int si_term_idx = i/64;
-			// int si_term = 0;
-			// if (si_term_idx < 32) {
-			// 	si_term = _mm256_extract_epi8(sjl, si_term_idx);
-			// } else {
-			// 	si_term = _mm256_extract_epi8(sjr, si_term_idx);//The extract function automatically truncates
-			// }
-			int8_t first = (4 - si_term);
+			int8_t first = (4 - s[i/64]);
 
 			__m256i f_term = _mm256_set1_epi8(first);
 
@@ -117,95 +109,81 @@ int run(int N) {
 		}
 	}
 
+
 	int edge_count = 0;
+	for (int i = 0; i < 4096; i++) {
+		edge_count += v[i];
+	}
+
+	if (edge_count != 64) {
+		return 1;
+	}
+
+	int starts[64];
+	int ends[64];
+	int edge_idx = 0;
+	int cur = 0;
+	int solution[64];
 
 	for (int i = 0; i < 64; i++) {
 		for (int j = i+1; j < 64; j++) {
-			edge_count += v at(i,j);
+			if (v at(i,j) == 1) {
+				starts[edge_idx] = i;
+				ends[edge_idx] = j;
+				solution[edge_idx] = 0;
+				edge_idx++;
+			}
 		}
 	}
 
+	solution[0] = 1;
 
-	if (edge_count == 64) {
-		int starts[64];
-		int ends[64];
-		int edge_idx = 0;
-		int cur = 0;
-		int solution[64];
-
-		for (int i = 0; i < 64; i++) {
-			for (int j = i+1; j < 64; j++) {
-				if (v at(i,j) == 1) {
-					starts[edge_idx] = i;
-					ends[edge_idx] = j;
-					solution[edge_idx] = 0;
-					edge_idx++;
+	for (int i = 1; i < 64 ; i++) {
+		for (int j = 0; j < 64 ; j++) {
+			if (cur == starts[j] || cur == ends[j]) {
+				int other = cur == ends[j] ? starts[j] : ends[j];
+				if (solution[other] == 0) {
+					solution[other] = i+1;
+					cur = other;
+					break;
 				}
 			}
 		}
-
-		solution[0] = 1;
-
-		for (int i = 1; i < 64 ; i++) {
-			for (int j = 0; j < 64 ; j++) {
-				if (cur == starts[j] || cur == ends[j]) {
-					int other = cur == ends[j] ? starts[j] : ends[j];
-					if (solution[other] == 0) {
-						solution[other] = i+1;
-						cur = other;
-						break;
-					}
-				}
-			}
-		}
-
-		for (int i = 0; i < 64; i++) {
-			if (solution[i] == 0) {
-				return 1;
-			}
-		}
-
-		for (int i = 0; i < 8; i++) {
-			printf("\n");
-			for (int j = 0; j < 8; j++) {
-				printf("%2d ", solution[i*8+j]);
-			}
-		}
-		printf("\n");
-
-		return 0;
-	} else {
-		return 1;
 	}
+
+	for (int i = 0; i < 64; i++) {
+		if (solution[i] == 0) {
+			return 1;
+		}
+	}
+
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			printf("%2d ", solution[i*8+j]);
+		}
+		printf("\n");			
+	}
+	return 0;
 
 }
 
 int main(int argc, char **argv) {
-
-
-	long seed = time(0);
-	if (argc >= 2) {
+    /* long seed = (long)(clock() * 1000);
+	srand(seed);  
+    if (argc >= 2) {
 		seed = atoi(argv[1]);
-	}
-
+	} // 1595464843, 1595466151, 1595466286 seeds give full results quickly
 	// printf("seed: %ld\n", seed);
-	srand(seed); // 1595464843, 1595466151, 1595466286 give full results
-
-
-	int N = 10; //10 * 10,000 iterations
+	int N = 5; //4 * 10,000 iterations -> best success rates based on 1000 trials
 	if (argc == 3) {
 		N = atoi(argv[2]) > 99 ? 99 : atoi(argv[2]);
-	}
-
 	printf("%d0000 iterations per network run", N);
+	}*/
 
-	clock_t start, end;
-	int failed_runs = 1;
+	srand(((long)(clock() * 1000))); 
 	start = clock();
-	while(run(N)){
+	while(run(/*N*/))
 		failed_runs++;
-	}
 	end = clock();
-
-	printf("%.2f seconds: %d total runs\n", (((double) (end - start)) / CLOCKS_PER_SEC), failed_runs);
+	printf("%.2f s | %d runs\n", (((double) (end - start)) / CLOCKS_PER_SEC), failed_runs);
 }
