@@ -56,7 +56,15 @@ int run(int N) {
 
 
 		for(int i=0; i<4096; i+=0x40) {
-			int8_t first = (4 - s[(i/64)]);
+			int8_t si_term = s[i/64];
+			// const int si_term_idx = i/64;
+			// int si_term = 0;
+			// if (si_term_idx < 32) {
+			// 	si_term = _mm256_extract_epi8(sjl, si_term_idx);
+			// } else {
+			// 	si_term = _mm256_extract_epi8(sjr, si_term_idx);//The extract function automatically truncates
+			// }
+			int8_t first = (4 - si_term);
 
 			__m256i f_term = _mm256_set1_epi8(first);
 
@@ -111,9 +119,11 @@ int run(int N) {
 
 	int edge_count = 0;
 
-	for (int i = 0; i < 64; i++)
-		for (int j = i+1; j < 64; j++)
+	for (int i = 0; i < 64; i++) {
+		for (int j = i+1; j < 64; j++) {
 			edge_count += v at(i,j);
+		}
+	}
 
 
 	if (edge_count == 64) {
@@ -172,12 +182,13 @@ int run(int N) {
 
 int main(int argc, char **argv) {
 	long seed = time(0);
-	printf("seed: %ld\n", seed);
+	// printf("seed: %ld\n", seed);
 	srand(seed); // 1595464843, 1595466151, 1595466286 give full results
 
 	int N = 10; //10 * 10,000 iterations
-	if (argc == 2)
+	if (argc == 2) {
 		N = atoi(argv[1]) > 99 ? 99 : atoi(argv[1]);
+	}
 
 	printf("%d0000 iterations per network run", N);
 

@@ -1,17 +1,14 @@
 	.file	"simd.c"
 	.text
-	.section	.rodata
-.LC0:
-	.string	"s = ["
-.LC1:
-	.string	"(%d,%d),"
+	.section	.rodata.str1.1,"aMS",@progbits,1
 .LC2:
-	.string	"]"
+	.string	"%2d "
 	.text
-	.globl	main
-	.type	main, @function
-main:
-.LFB4006:
+	.p2align 4
+	.globl	run
+	.type	run, @function
+run:
+.LFB5307:
 	.cfi_startproc
 	endbr64
 	pushq	%rbp
@@ -31,1061 +28,272 @@ main:
 	orq	$0, (%rsp)
 	subq	$4096, %rsp
 	orq	$0, (%rsp)
-	subq	$1408, %rsp
+	subq	$928, %rsp
 	.cfi_offset 15, -24
 	.cfi_offset 14, -32
 	.cfi_offset 13, -40
 	.cfi_offset 12, -48
 	.cfi_offset 3, -56
+	movl	%edi, 12(%rsp)
+	leaq	832(%rsp), %rcx
+	leaq	896(%rsp), %r14
+	leaq	4992(%rsp), %r13
 	movq	%fs:40, %rax
-	movq	%rax, 13688(%rsp)
+	movq	%rax, 13208(%rsp)
 	xorl	%eax, %eax
-	movl	$1595392855, %edi
-	call	srand@PLT
-	movl	$0, 196(%rsp)
-	jmp	.L2
-.L6:
-	movl	$0, 200(%rsp)
-	jmp	.L3
-.L5:
-	movl	196(%rsp), %eax
-	leal	7(%rax), %edx
-	testl	%eax, %eax
-	cmovs	%edx, %eax
-	sarl	$3, %eax
-	movl	%eax, %ecx
-	movl	200(%rsp), %eax
-	leal	7(%rax), %edx
-	testl	%eax, %eax
-	cmovs	%edx, %eax
-	sarl	$3, %eax
-	negl	%eax
-	addl	%ecx, %eax
-	movl	%eax, 232(%rsp)
-	movl	196(%rsp), %eax
-	cltd
-	shrl	$29, %edx
-	addl	%edx, %eax
-	andl	$7, %eax
-	subl	%edx, %eax
-	movl	%eax, %ecx
-	movl	200(%rsp), %eax
-	cltd
-	shrl	$29, %edx
-	addl	%edx, %eax
-	andl	$7, %eax
-	subl	%edx, %eax
-	subl	%eax, %ecx
-	movl	%ecx, %eax
-	movl	%eax, 236(%rsp)
-	movl	196(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %edx
-	movl	200(%rsp), %eax
-	addl	%edx, %eax
-	cltq
-	movb	$0, 1376(%rsp,%rax)
-	movl	196(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %edx
-	movl	200(%rsp), %eax
-	addl	%edx, %eax
-	cltq
-	movb	$0, 9568(%rsp,%rax)
-	movl	196(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %edx
-	movl	200(%rsp), %eax
-	addl	%edx, %eax
-	cltq
-	movb	$0, 5472(%rsp,%rax)
-	movl	196(%rsp), %eax
-	cltq
-	movb	$0, 1312(%rsp,%rax)
-	movl	232(%rsp), %eax
-	imull	%eax, %eax
-	movl	%eax, %edx
-	movl	236(%rsp), %eax
-	imull	%eax, %eax
-	addl	%edx, %eax
-	cmpl	$5, %eax
-	jne	.L4
-	movl	196(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %edx
-	movl	200(%rsp), %eax
-	addl	%edx, %eax
-	cltq
-	movb	$-1, 1376(%rsp,%rax)
-	movl	196(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %edx
-	movl	200(%rsp), %eax
-	addl	%edx, %eax
-	cltq
-	movb	$-1, 1376(%rsp,%rax)
-	call	rand@PLT
-	cltd
-	shrl	$31, %edx
-	addl	%edx, %eax
-	andl	$1, %eax
-	subl	%edx, %eax
-	movl	%eax, %ecx
-	movl	196(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %edx
-	movl	200(%rsp), %eax
-	addl	%edx, %eax
-	movl	%ecx, %edx
-	cltq
-	movb	%dl, 9568(%rsp,%rax)
-	movl	196(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %edx
-	movl	200(%rsp), %eax
-	addl	%eax, %edx
-	movl	200(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %ecx
-	movl	196(%rsp), %eax
-	addl	%eax, %ecx
-	movslq	%edx, %rax
-	movzbl	9568(%rsp,%rax), %edx
-	movslq	%ecx, %rax
-	movb	%dl, 9568(%rsp,%rax)
-.L4:
-	addl	$1, 200(%rsp)
-.L3:
-	cmpl	$63, 200(%rsp)
-	jle	.L5
-	addl	$1, 196(%rsp)
+	leaq	9088(%rsp), %rax
+	movq	%r14, 16(%rsp)
+	movq	%rcx, (%rsp)
+	movq	%rax, %r15
+	movl	$0, 48(%rsp)
+	movq	%rax, 32(%rsp)
+	movq	%rax, 40(%rsp)
+	movq	%r13, %rax
+	movq	%r13, 24(%rsp)
+	movq	%rax, %r12
+	movq	%rcx, %r13
+	.p2align 4,,10
+	.p2align 3
 .L2:
-	cmpl	$63, 196(%rsp)
-	jle	.L6
-	movl	$0, 204(%rsp)
-	jmp	.L7
-.L38:
-	movb	$0, 130(%rsp)
-	movsbl	130(%rsp), %eax
-	movl	%eax, 92(%rsp)
-	movsbl	130(%rsp), %ebx
-	movl	%ebx, 88(%rsp)
-	movsbl	130(%rsp), %esi
-	movl	%esi, 84(%rsp)
-	movsbl	130(%rsp), %edi
-	movl	%edi, 80(%rsp)
-	movsbl	130(%rsp), %ecx
-	movl	%ecx, 76(%rsp)
-	movsbl	130(%rsp), %edx
-	movl	%edx, 72(%rsp)
-	movsbl	130(%rsp), %r8d
-	movl	%r8d, 68(%rsp)
-	movsbl	130(%rsp), %r9d
-	movl	%r9d, 64(%rsp)
-	movsbl	130(%rsp), %r10d
-	movl	%r10d, 60(%rsp)
-	movsbl	130(%rsp), %r11d
-	movl	%r11d, 56(%rsp)
-	movsbl	130(%rsp), %r14d
-	movl	%r14d, 52(%rsp)
-	movsbl	130(%rsp), %r15d
-	movl	%r15d, 48(%rsp)
-	movsbl	130(%rsp), %r12d
-	movl	%r12d, 44(%rsp)
-	movsbl	130(%rsp), %r13d
-	movl	%r13d, 40(%rsp)
-	movsbl	130(%rsp), %eax
-	movl	%eax, 36(%rsp)
-	movsbl	130(%rsp), %ebx
-	movl	%ebx, 32(%rsp)
-	movsbl	130(%rsp), %esi
-	movl	%esi, 28(%rsp)
-	movsbl	130(%rsp), %edi
-	movl	%edi, 24(%rsp)
-	movsbl	130(%rsp), %r15d
-	movsbl	130(%rsp), %r14d
-	movsbl	130(%rsp), %r13d
-	movsbl	130(%rsp), %r12d
-	movsbl	130(%rsp), %ebx
-	movsbl	130(%rsp), %r11d
-	movsbl	130(%rsp), %r10d
-	movsbl	130(%rsp), %r9d
-	movsbl	130(%rsp), %r8d
-	movsbl	130(%rsp), %edi
-	movsbl	130(%rsp), %esi
-	movsbl	130(%rsp), %ecx
-	movsbl	130(%rsp), %edx
-	movsbl	130(%rsp), %eax
-	movb	%al, 131(%rsp)
-	movb	%dl, 132(%rsp)
-	movb	%cl, 133(%rsp)
-	movb	%sil, 134(%rsp)
-	movb	%dil, 135(%rsp)
-	movb	%r8b, 136(%rsp)
-	movb	%r9b, 137(%rsp)
-	movb	%r10b, 138(%rsp)
-	movb	%r11b, 139(%rsp)
-	movb	%bl, 140(%rsp)
-	movb	%r12b, 141(%rsp)
-	movb	%r13b, 142(%rsp)
-	movb	%r14b, 143(%rsp)
-	movb	%r15b, 144(%rsp)
-	movzbl	24(%rsp), %edi
-	movb	%dil, 145(%rsp)
-	movzbl	28(%rsp), %esi
-	movb	%sil, 146(%rsp)
-	movzbl	32(%rsp), %ebx
-	movb	%bl, 147(%rsp)
-	movzbl	36(%rsp), %eax
-	movb	%al, 148(%rsp)
-	movzbl	40(%rsp), %r13d
-	movb	%r13b, 149(%rsp)
-	movzbl	44(%rsp), %r12d
-	movb	%r12b, 150(%rsp)
-	movzbl	48(%rsp), %r15d
-	movb	%r15b, 151(%rsp)
-	movzbl	52(%rsp), %r14d
-	movb	%r14b, 152(%rsp)
-	movzbl	56(%rsp), %r11d
-	movb	%r11b, 153(%rsp)
-	movzbl	60(%rsp), %r10d
-	movb	%r10b, 154(%rsp)
-	movzbl	64(%rsp), %r9d
-	movb	%r9b, 155(%rsp)
-	movzbl	68(%rsp), %r8d
-	movb	%r8b, 156(%rsp)
-	movzbl	72(%rsp), %edx
-	movb	%dl, 157(%rsp)
-	movzbl	76(%rsp), %ecx
-	movb	%cl, 158(%rsp)
-	movzbl	80(%rsp), %edi
-	movb	%dil, 159(%rsp)
-	movzbl	84(%rsp), %esi
-	movb	%sil, 160(%rsp)
-	movzbl	88(%rsp), %ebx
-	movb	%bl, 161(%rsp)
-	movzbl	92(%rsp), %eax
-	movb	%al, 162(%rsp)
-	movzbl	162(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	161(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm1
-	movzbl	160(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	159(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm8
-	movzbl	158(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	157(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm4
-	movzbl	156(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	155(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm7
-	movzbl	154(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	153(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	movzbl	152(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	151(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm6
-	movzbl	150(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	149(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm3
-	movzbl	148(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	147(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm5
-	vpunpcklwd	%xmm8, %xmm1, %xmm0
-	vmovdqa	%xmm0, %xmm1
-	vpunpcklwd	%xmm7, %xmm4, %xmm0
-	vmovdqa	%xmm0, %xmm4
-	vpunpcklwd	%xmm6, %xmm2, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	vpunpcklwd	%xmm5, %xmm3, %xmm0
-	vmovdqa	%xmm0, %xmm3
-	vpunpckldq	%xmm4, %xmm1, %xmm0
-	vmovdqa	%xmm0, %xmm1
-	vpunpckldq	%xmm3, %xmm2, %xmm0
-	vpunpcklqdq	%xmm0, %xmm1, %xmm0
-	vmovdqa	%xmm0, %xmm1
-	movzbl	146(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	145(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	movzbl	144(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	143(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm9
-	movzbl	142(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	141(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm5
-	movzbl	140(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	139(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm8
-	movzbl	138(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	137(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm3
-	movzbl	136(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	135(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm7
-	movzbl	134(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	133(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm4
-	movzbl	132(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	131(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm6
-	vpunpcklwd	%xmm9, %xmm2, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	vpunpcklwd	%xmm8, %xmm5, %xmm0
-	vmovdqa	%xmm0, %xmm5
-	vpunpcklwd	%xmm7, %xmm3, %xmm0
-	vmovdqa	%xmm0, %xmm3
-	vpunpcklwd	%xmm6, %xmm4, %xmm0
-	vmovdqa	%xmm0, %xmm4
-	vpunpckldq	%xmm5, %xmm2, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	vpunpckldq	%xmm4, %xmm3, %xmm0
-	vpunpcklqdq	%xmm0, %xmm2, %xmm0
-	vinserti128	$0x1, %xmm0, %ymm1, %ymm0
-	nop
-	vmovdqa	%ymm0, 320(%rsp)
-	movb	$0, 97(%rsp)
-	movsbl	97(%rsp), %eax
-	movl	%eax, 92(%rsp)
-	movsbl	97(%rsp), %ebx
-	movl	%ebx, 88(%rsp)
-	movsbl	97(%rsp), %esi
-	movl	%esi, 84(%rsp)
-	movsbl	97(%rsp), %edi
-	movl	%edi, 80(%rsp)
-	movsbl	97(%rsp), %ecx
-	movl	%ecx, 76(%rsp)
-	movsbl	97(%rsp), %edx
-	movl	%edx, 72(%rsp)
-	movsbl	97(%rsp), %r8d
-	movl	%r8d, 68(%rsp)
-	movsbl	97(%rsp), %r9d
-	movl	%r9d, 64(%rsp)
-	movsbl	97(%rsp), %r10d
-	movl	%r10d, 60(%rsp)
-	movsbl	97(%rsp), %r11d
-	movl	%r11d, 56(%rsp)
-	movsbl	97(%rsp), %r14d
-	movl	%r14d, 52(%rsp)
-	movsbl	97(%rsp), %r15d
-	movl	%r15d, 48(%rsp)
-	movsbl	97(%rsp), %r12d
-	movl	%r12d, 44(%rsp)
-	movsbl	97(%rsp), %r13d
-	movl	%r13d, 40(%rsp)
-	movsbl	97(%rsp), %eax
-	movl	%eax, 36(%rsp)
-	movsbl	97(%rsp), %ebx
-	movl	%ebx, 32(%rsp)
-	movsbl	97(%rsp), %esi
-	movl	%esi, 28(%rsp)
-	movsbl	97(%rsp), %edi
-	movl	%edi, 24(%rsp)
-	movsbl	97(%rsp), %r15d
-	movsbl	97(%rsp), %r14d
-	movsbl	97(%rsp), %r13d
-	movsbl	97(%rsp), %r12d
-	movsbl	97(%rsp), %ebx
-	movsbl	97(%rsp), %r11d
-	movsbl	97(%rsp), %r10d
-	movsbl	97(%rsp), %r9d
-	movsbl	97(%rsp), %r8d
-	movsbl	97(%rsp), %edi
-	movsbl	97(%rsp), %esi
-	movsbl	97(%rsp), %ecx
-	movsbl	97(%rsp), %edx
-	movsbl	97(%rsp), %eax
-	movb	%al, 98(%rsp)
-	movb	%dl, 99(%rsp)
-	movb	%cl, 100(%rsp)
-	movb	%sil, 101(%rsp)
-	movb	%dil, 102(%rsp)
-	movb	%r8b, 103(%rsp)
-	movb	%r9b, 104(%rsp)
-	movb	%r10b, 105(%rsp)
-	movb	%r11b, 106(%rsp)
-	movb	%bl, 107(%rsp)
-	movb	%r12b, 108(%rsp)
-	movb	%r13b, 109(%rsp)
-	movb	%r14b, 110(%rsp)
-	movb	%r15b, 111(%rsp)
-	movzbl	24(%rsp), %edi
-	movb	%dil, 112(%rsp)
-	movzbl	28(%rsp), %esi
-	movb	%sil, 113(%rsp)
-	movzbl	32(%rsp), %ebx
-	movb	%bl, 114(%rsp)
-	movzbl	36(%rsp), %eax
-	movb	%al, 115(%rsp)
-	movzbl	40(%rsp), %r13d
-	movb	%r13b, 116(%rsp)
-	movzbl	44(%rsp), %r12d
-	movb	%r12b, 117(%rsp)
-	movzbl	48(%rsp), %r15d
-	movb	%r15b, 118(%rsp)
-	movzbl	52(%rsp), %r14d
-	movb	%r14b, 119(%rsp)
-	movzbl	56(%rsp), %r11d
-	movb	%r11b, 120(%rsp)
-	movzbl	60(%rsp), %r10d
-	movb	%r10b, 121(%rsp)
-	movzbl	64(%rsp), %r9d
-	movb	%r9b, 122(%rsp)
-	movzbl	68(%rsp), %r8d
-	movb	%r8b, 123(%rsp)
-	movzbl	72(%rsp), %edx
-	movb	%dl, 124(%rsp)
-	movzbl	76(%rsp), %ecx
-	movb	%cl, 125(%rsp)
-	movzbl	80(%rsp), %edi
-	movb	%dil, 126(%rsp)
-	movzbl	84(%rsp), %esi
-	movb	%sil, 127(%rsp)
-	movzbl	88(%rsp), %ebx
-	movb	%bl, 128(%rsp)
-	movzbl	92(%rsp), %eax
-	movb	%al, 129(%rsp)
-	movzbl	129(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	128(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm1
-	movzbl	127(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	126(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm8
-	movzbl	125(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	124(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm4
-	movzbl	123(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	122(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm7
-	movzbl	121(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	120(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	movzbl	119(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	118(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm6
-	movzbl	117(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	116(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm3
-	movzbl	115(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	114(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm5
-	vpunpcklwd	%xmm8, %xmm1, %xmm0
-	vmovdqa	%xmm0, %xmm1
-	vpunpcklwd	%xmm7, %xmm4, %xmm0
-	vmovdqa	%xmm0, %xmm4
-	vpunpcklwd	%xmm6, %xmm2, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	vpunpcklwd	%xmm5, %xmm3, %xmm0
-	vmovdqa	%xmm0, %xmm3
-	vpunpckldq	%xmm4, %xmm1, %xmm0
-	vmovdqa	%xmm0, %xmm1
-	vpunpckldq	%xmm3, %xmm2, %xmm0
-	vpunpcklqdq	%xmm0, %xmm1, %xmm0
-	vmovdqa	%xmm0, %xmm1
-	movzbl	113(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	112(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	movzbl	111(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	110(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm9
-	movzbl	109(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	108(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm5
-	movzbl	107(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	106(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm8
-	movzbl	105(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	104(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm3
-	movzbl	103(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	102(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm7
-	movzbl	101(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	100(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm4
-	movzbl	99(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	98(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm6
-	vpunpcklwd	%xmm9, %xmm2, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	vpunpcklwd	%xmm8, %xmm5, %xmm0
-	vmovdqa	%xmm0, %xmm5
-	vpunpcklwd	%xmm7, %xmm3, %xmm0
-	vmovdqa	%xmm0, %xmm3
-	vpunpcklwd	%xmm6, %xmm4, %xmm0
-	vmovdqa	%xmm0, %xmm4
-	vpunpckldq	%xmm5, %xmm2, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	vpunpckldq	%xmm4, %xmm3, %xmm0
-	vpunpcklqdq	%xmm0, %xmm2, %xmm0
-	vinserti128	$0x1, %xmm0, %ymm1, %ymm0
-	nop
-	vmovdqa	%ymm0, 352(%rsp)
-	movl	$0, 208(%rsp)
-	jmp	.L12
-.L17:
-	movl	208(%rsp), %eax
-	cltq
-	leaq	9568(%rsp), %rdx
-	addq	%rdx, %rax
-	movq	%rax, 248(%rsp)
-	movq	248(%rsp), %rax
-	vmovdqu	(%rax), %xmm0
-	vinserti128	$0x1, 16(%rax), %ymm0, %ymm0
-	vmovdqa	%ymm0, 608(%rsp)
-	movl	208(%rsp), %eax
-	cltq
-	leaq	32(%rax), %rdx
-	leaq	9568(%rsp), %rax
-	addq	%rdx, %rax
-	movq	%rax, 240(%rsp)
-	movq	240(%rsp), %rax
-	vmovdqu	(%rax), %xmm0
-	vinserti128	$0x1, 16(%rax), %ymm0, %ymm0
-	vmovdqa	%ymm0, 640(%rsp)
-	vmovdqa	608(%rsp), %ymm0
-	vmovdqa	%ymm0, 736(%rsp)
-	vmovdqa	320(%rsp), %ymm0
-	vmovdqa	%ymm0, 768(%rsp)
-	vmovdqa	768(%rsp), %ymm0
-	vmovdqa	736(%rsp), %ymm1
-	vpaddsb	%ymm0, %ymm1, %ymm0
-	vmovdqa	%ymm0, 320(%rsp)
-	vmovdqa	640(%rsp), %ymm0
-	vmovdqa	%ymm0, 672(%rsp)
-	vmovdqa	352(%rsp), %ymm0
-	vmovdqa	%ymm0, 704(%rsp)
-	vmovdqa	704(%rsp), %ymm0
-	vmovdqa	672(%rsp), %ymm1
-	vpaddsb	%ymm0, %ymm1, %ymm0
-	nop
-	vmovdqa	%ymm0, 352(%rsp)
-	addl	$64, 208(%rsp)
-.L12:
-	cmpl	$4095, 208(%rsp)
-	jle	.L17
-	leaq	1312(%rsp), %rax
-	movq	%rax, 264(%rsp)
-	vmovdqa	320(%rsp), %ymm0
-	vmovdqa	%ymm0, 832(%rsp)
-	vmovdqa	832(%rsp), %ymm0
-	movq	264(%rsp), %rax
-	vmovups	%xmm0, (%rax)
-	vextracti128	$0x1, %ymm0, 16(%rax)
-	nop
-	leaq	1312(%rsp), %rax
-	addq	$32, %rax
-	movq	%rax, 256(%rsp)
-	vmovdqa	352(%rsp), %ymm0
-	vmovdqa	%ymm0, 800(%rsp)
-	vmovdqa	800(%rsp), %ymm0
-	movq	256(%rsp), %rax
-	vmovups	%xmm0, (%rax)
-	vextracti128	$0x1, %ymm0, 16(%rax)
-	nop
-	movl	$0, 212(%rsp)
-	jmp	.L18
-.L31:
-	movl	212(%rsp), %eax
-	leal	63(%rax), %edx
-	testl	%eax, %eax
-	cmovs	%edx, %eax
-	sarl	$6, %eax
-	cltq
-	movzbl	1312(%rsp,%rax), %eax
-	movl	$4, %edx
-	subl	%eax, %edx
-	movl	%edx, %eax
-	movb	%al, 96(%rsp)
-	movsbl	96(%rsp), %eax
-	movb	%al, 163(%rsp)
-	movsbl	163(%rsp), %eax
-	movl	%eax, 92(%rsp)
-	movsbl	163(%rsp), %ebx
-	movl	%ebx, 88(%rsp)
-	movsbl	163(%rsp), %esi
-	movl	%esi, 84(%rsp)
-	movsbl	163(%rsp), %edi
-	movl	%edi, 80(%rsp)
-	movsbl	163(%rsp), %ecx
-	movl	%ecx, 76(%rsp)
-	movsbl	163(%rsp), %edx
-	movl	%edx, 72(%rsp)
-	movsbl	163(%rsp), %r8d
-	movl	%r8d, 68(%rsp)
-	movsbl	163(%rsp), %r9d
-	movl	%r9d, 64(%rsp)
-	movsbl	163(%rsp), %r10d
-	movl	%r10d, 60(%rsp)
-	movsbl	163(%rsp), %r11d
-	movl	%r11d, 56(%rsp)
-	movsbl	163(%rsp), %r14d
-	movl	%r14d, 52(%rsp)
-	movsbl	163(%rsp), %r15d
-	movl	%r15d, 48(%rsp)
-	movsbl	163(%rsp), %r12d
-	movl	%r12d, 44(%rsp)
-	movsbl	163(%rsp), %r13d
-	movl	%r13d, 40(%rsp)
-	movsbl	163(%rsp), %eax
-	movl	%eax, 36(%rsp)
-	movsbl	163(%rsp), %ebx
-	movl	%ebx, 32(%rsp)
-	movsbl	163(%rsp), %esi
-	movl	%esi, 28(%rsp)
-	movsbl	163(%rsp), %edi
-	movl	%edi, 24(%rsp)
-	movsbl	163(%rsp), %r15d
-	movsbl	163(%rsp), %r14d
-	movsbl	163(%rsp), %r13d
-	movsbl	163(%rsp), %r12d
-	movsbl	163(%rsp), %ebx
-	movsbl	163(%rsp), %r11d
-	movsbl	163(%rsp), %r10d
-	movsbl	163(%rsp), %r9d
-	movsbl	163(%rsp), %r8d
-	movsbl	163(%rsp), %edi
-	movsbl	163(%rsp), %esi
-	movsbl	163(%rsp), %ecx
-	movsbl	163(%rsp), %edx
-	movsbl	163(%rsp), %eax
-	movb	%al, 164(%rsp)
-	movb	%dl, 165(%rsp)
-	movb	%cl, 166(%rsp)
-	movb	%sil, 167(%rsp)
-	movb	%dil, 168(%rsp)
-	movb	%r8b, 169(%rsp)
-	movb	%r9b, 170(%rsp)
-	movb	%r10b, 171(%rsp)
-	movb	%r11b, 172(%rsp)
-	movb	%bl, 173(%rsp)
-	movb	%r12b, 174(%rsp)
-	movb	%r13b, 175(%rsp)
-	movb	%r14b, 176(%rsp)
-	movb	%r15b, 177(%rsp)
-	movzbl	24(%rsp), %ecx
-	movb	%cl, 178(%rsp)
-	movzbl	28(%rsp), %esi
-	movb	%sil, 179(%rsp)
-	movzbl	32(%rsp), %ebx
-	movb	%bl, 180(%rsp)
-	movzbl	36(%rsp), %eax
-	movb	%al, 181(%rsp)
-	movzbl	40(%rsp), %r13d
-	movb	%r13b, 182(%rsp)
-	movzbl	44(%rsp), %r12d
-	movb	%r12b, 183(%rsp)
-	movzbl	48(%rsp), %r15d
-	movb	%r15b, 184(%rsp)
-	movzbl	52(%rsp), %r14d
-	movb	%r14b, 185(%rsp)
-	movzbl	56(%rsp), %r11d
-	movb	%r11b, 186(%rsp)
-	movzbl	60(%rsp), %r10d
-	movb	%r10b, 187(%rsp)
-	movzbl	64(%rsp), %r9d
-	movb	%r9b, 188(%rsp)
-	movzbl	68(%rsp), %r8d
-	movb	%r8b, 189(%rsp)
-	movzbl	72(%rsp), %edx
-	movb	%dl, 190(%rsp)
-	movzbl	76(%rsp), %ecx
-	movb	%cl, 191(%rsp)
-	movzbl	80(%rsp), %edi
-	movb	%dil, 192(%rsp)
-	movzbl	84(%rsp), %esi
-	movb	%sil, 193(%rsp)
-	movzbl	88(%rsp), %ebx
-	movb	%bl, 194(%rsp)
-	movzbl	92(%rsp), %eax
-	movb	%al, 195(%rsp)
-	movzbl	195(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	194(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm1
-	movzbl	193(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	192(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm8
-	movzbl	191(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	190(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm4
-	movzbl	189(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	188(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm7
-	movzbl	187(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	186(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	movzbl	185(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	184(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm6
-	movzbl	183(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	182(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm3
-	movzbl	181(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	180(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm5
-	vpunpcklwd	%xmm8, %xmm1, %xmm0
-	vmovdqa	%xmm0, %xmm1
-	vpunpcklwd	%xmm7, %xmm4, %xmm0
-	vmovdqa	%xmm0, %xmm4
-	vpunpcklwd	%xmm6, %xmm2, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	vpunpcklwd	%xmm5, %xmm3, %xmm0
-	vmovdqa	%xmm0, %xmm3
-	vpunpckldq	%xmm4, %xmm1, %xmm0
-	vmovdqa	%xmm0, %xmm1
-	vpunpckldq	%xmm3, %xmm2, %xmm0
-	vpunpcklqdq	%xmm0, %xmm1, %xmm0
-	vmovdqa	%xmm0, %xmm1
-	movzbl	179(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	178(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	movzbl	177(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	176(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm9
-	movzbl	175(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	174(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm5
-	movzbl	173(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	172(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm8
-	movzbl	171(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	170(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm3
-	movzbl	169(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	168(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm7
-	movzbl	167(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	166(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm4
-	movzbl	165(%rsp), %eax
-	vmovd	%eax, %xmm0
-	movzbl	164(%rsp), %eax
-	vpinsrb	$1, %eax, %xmm0, %xmm0
-	vmovdqa	%xmm0, %xmm6
-	vpunpcklwd	%xmm9, %xmm2, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	vpunpcklwd	%xmm8, %xmm5, %xmm0
-	vmovdqa	%xmm0, %xmm5
-	vpunpcklwd	%xmm7, %xmm3, %xmm0
-	vmovdqa	%xmm0, %xmm3
-	vpunpcklwd	%xmm6, %xmm4, %xmm0
-	vmovdqa	%xmm0, %xmm4
-	vpunpckldq	%xmm5, %xmm2, %xmm0
-	vmovdqa	%xmm0, %xmm2
-	vpunpckldq	%xmm4, %xmm3, %xmm0
-	vpunpcklqdq	%xmm0, %xmm2, %xmm0
-	vinserti128	$0x1, %xmm0, %ymm1, %ymm0
-	nop
-	vmovdqa	%ymm0, 384(%rsp)
-	movl	212(%rsp), %eax
-	cltq
-	leaq	1376(%rsp), %rdx
-	addq	%rdx, %rax
-	movq	%rax, 312(%rsp)
-	movq	312(%rsp), %rax
-	vmovdqu	(%rax), %xmm0
-	vinserti128	$0x1, 16(%rax), %ymm0, %ymm0
-	vmovdqa	%ymm0, 416(%rsp)
-	movl	212(%rsp), %eax
-	cltq
-	leaq	32(%rax), %rdx
-	leaq	1376(%rsp), %rax
-	addq	%rdx, %rax
-	movq	%rax, 304(%rsp)
-	movq	304(%rsp), %rax
-	vmovdqu	(%rax), %xmm0
-	vinserti128	$0x1, 16(%rax), %ymm0, %ymm0
-	vmovdqa	%ymm0, 448(%rsp)
-	movl	212(%rsp), %eax
-	cltq
-	leaq	5472(%rsp), %rdx
-	addq	%rdx, %rax
-	movq	%rax, 296(%rsp)
-	movq	296(%rsp), %rax
-	vmovdqu	(%rax), %xmm0
-	vinserti128	$0x1, 16(%rax), %ymm0, %ymm0
-	vmovdqa	%ymm0, 480(%rsp)
-	movl	212(%rsp), %eax
-	cltq
-	leaq	32(%rax), %rdx
-	leaq	5472(%rsp), %rax
-	addq	%rdx, %rax
-	movq	%rax, 288(%rsp)
-	movq	288(%rsp), %rax
-	vmovdqu	(%rax), %xmm0
-	vinserti128	$0x1, 16(%rax), %ymm0, %ymm0
-	vmovdqa	%ymm0, 512(%rsp)
-	vmovdqa	384(%rsp), %ymm0
-	vmovdqa	%ymm0, 1248(%rsp)
-	vmovdqa	320(%rsp), %ymm0
-	vmovdqa	%ymm0, 1280(%rsp)
-	vmovdqa	1280(%rsp), %ymm1
-	vmovdqa	1248(%rsp), %ymm0
-	vpsubsb	%ymm1, %ymm0, %ymm0
-	vmovdqa	%ymm0, 544(%rsp)
-	vmovdqa	384(%rsp), %ymm0
-	vmovdqa	%ymm0, 1184(%rsp)
-	vmovdqa	352(%rsp), %ymm0
-	vmovdqa	%ymm0, 1216(%rsp)
-	vmovdqa	1216(%rsp), %ymm1
-	vmovdqa	1184(%rsp), %ymm0
-	vpsubsb	%ymm1, %ymm0, %ymm0
-	vmovdqa	%ymm0, 576(%rsp)
-	vmovdqa	480(%rsp), %ymm0
-	vmovdqa	%ymm0, 1120(%rsp)
-	vmovdqa	544(%rsp), %ymm0
-	vmovdqa	%ymm0, 1152(%rsp)
-	vmovdqa	1152(%rsp), %ymm0
-	vmovdqa	1120(%rsp), %ymm1
-	vpaddsb	%ymm0, %ymm1, %ymm0
-	vmovdqa	%ymm0, 544(%rsp)
-	vmovdqa	512(%rsp), %ymm0
-	vmovdqa	%ymm0, 1056(%rsp)
-	vmovdqa	576(%rsp), %ymm0
-	vmovdqa	%ymm0, 1088(%rsp)
-	vmovdqa	1088(%rsp), %ymm0
-	vmovdqa	1056(%rsp), %ymm1
-	vpaddsb	%ymm0, %ymm1, %ymm0
-	vmovdqa	%ymm0, 576(%rsp)
-	vmovdqa	416(%rsp), %ymm0
-	vmovdqa	%ymm0, 992(%rsp)
-	vmovdqa	544(%rsp), %ymm0
-	vmovdqa	%ymm0, 1024(%rsp)
-	vmovdqa	992(%rsp), %ymm1
-	vmovdqa	1024(%rsp), %ymm0
-	vpand	%ymm0, %ymm1, %ymm0
-	vmovdqa	%ymm0, 544(%rsp)
-	vmovdqa	448(%rsp), %ymm0
-	vmovdqa	%ymm0, 928(%rsp)
-	vmovdqa	576(%rsp), %ymm0
-	vmovdqa	%ymm0, 960(%rsp)
-	vmovdqa	928(%rsp), %ymm1
-	vmovdqa	960(%rsp), %ymm0
-	vpand	%ymm0, %ymm1, %ymm0
-	vmovdqa	%ymm0, 576(%rsp)
-	movl	212(%rsp), %eax
-	cltq
-	leaq	5472(%rsp), %rdx
-	addq	%rdx, %rax
-	movq	%rax, 280(%rsp)
-	vmovdqa	544(%rsp), %ymm0
-	vmovdqa	%ymm0, 896(%rsp)
-	vmovdqa	896(%rsp), %ymm0
-	movq	280(%rsp), %rax
-	vmovups	%xmm0, (%rax)
-	vextracti128	$0x1, %ymm0, 16(%rax)
-	nop
-	movl	212(%rsp), %eax
-	cltq
-	leaq	32(%rax), %rdx
-	leaq	5472(%rsp), %rax
-	addq	%rdx, %rax
-	movq	%rax, 272(%rsp)
-	vmovdqa	576(%rsp), %ymm0
-	vmovdqa	%ymm0, 864(%rsp)
-	vmovdqa	864(%rsp), %ymm0
-	movq	272(%rsp), %rax
-	vmovups	%xmm0, (%rax)
-	vextracti128	$0x1, %ymm0, 16(%rax)
-	nop
-	addl	$64, 212(%rsp)
-.L18:
-	cmpl	$4095, 212(%rsp)
-	jle	.L31
-	movl	$0, 216(%rsp)
-	jmp	.L32
-.L37:
-	movl	$0, 220(%rsp)
-	jmp	.L33
-.L36:
-	movl	216(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %edx
-	movl	220(%rsp), %eax
-	addl	%edx, %eax
-	cltq
-	movzbl	1376(%rsp,%rax), %eax
-	testb	%al, %al
-	je	.L34
-	movl	216(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %edx
-	movl	220(%rsp), %eax
-	addl	%edx, %eax
-	cltq
-	movzbl	5472(%rsp,%rax), %eax
-	cmpb	$3, %al
-	jle	.L35
-	movl	216(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %edx
-	movl	220(%rsp), %eax
-	addl	%edx, %eax
-	cltq
-	movb	$1, 9568(%rsp,%rax)
-.L35:
-	movl	216(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %edx
-	movl	220(%rsp), %eax
-	addl	%edx, %eax
-	cltq
-	movzbl	5472(%rsp,%rax), %eax
-	testb	%al, %al
-	jns	.L34
-	movl	216(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %edx
-	movl	220(%rsp), %eax
-	addl	%edx, %eax
-	cltq
-	movb	$0, 9568(%rsp,%rax)
-.L34:
-	addl	$1, 220(%rsp)
-.L33:
-	cmpl	$63, 220(%rsp)
-	jle	.L36
-	addl	$1, 216(%rsp)
-.L32:
-	cmpl	$63, 216(%rsp)
-	jle	.L37
-	addl	$1, 204(%rsp)
-.L7:
-	cmpl	$349999, 204(%rsp)
-	jle	.L38
-	leaq	.LC0(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-	movl	$0, 224(%rsp)
-	jmp	.L39
-.L43:
-	movl	$0, 228(%rsp)
-	jmp	.L40
-.L42:
-	movl	224(%rsp), %eax
-	sall	$6, %eax
-	movl	%eax, %edx
-	movl	228(%rsp), %eax
-	addl	%edx, %eax
-	cltq
-	movzbl	9568(%rsp,%rax), %eax
-	cmpb	$1, %al
-	jne	.L41
-	movl	228(%rsp), %edx
-	movl	224(%rsp), %eax
+	movl	48(%rsp), %eax
+	movq	%r12, %rcx
+	xorl	%ebx, %ebx
+	movq	%r13, %r12
+	movl	%eax, %edi
+	andl	$7, %eax
+	sarl	$3, %edi
 	movl	%eax, %esi
-	leaq	.LC1(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-.L41:
-	addl	$1, 228(%rsp)
-.L40:
-	cmpl	$63, 228(%rsp)
-	jle	.L42
-	addl	$1, 224(%rsp)
-.L39:
-	cmpl	$63, 224(%rsp)
-	jle	.L43
-	leaq	.LC2(%rip), %rdi
-	call	puts@PLT
-	movl	$0, %eax
-	movq	13688(%rsp), %rbx
-	xorq	%fs:40, %rbx
-	je	.L45
-	call	__stack_chk_fail@PLT
-.L45:
+	movl	%edi, %r13d
+	jmp	.L4
+	.p2align 4,,10
+	.p2align 3
+.L3:
+	addq	$1, %rbx
+	cmpq	$64, %rbx
+	je	.L53
+.L4:
+	testl	%ebx, %ebx
+	leal	7(%rbx), %eax
+	movl	%r13d, %edx
+	movl	%ebx, %edi
+	cmovns	%ebx, %eax
+	andl	$7, %edi
+	movb	$0, (%r14,%rbx)
+	movb	$0, (%r15,%rbx)
+	sarl	$3, %eax
+	movb	$0, (%rcx,%rbx)
+	subl	%eax, %edx
+	movb	$0, (%r12)
+	movl	%edx, %eax
+	movl	%esi, %edx
+	subl	%edi, %edx
+	imull	%eax, %eax
+	movl	%edx, %edi
+	imull	%edx, %edi
+	addl	%edi, %eax
+	cmpl	$5, %eax
+	jne	.L3
+	movb	$-1, (%r14,%rbx)
+	movl	%esi, 52(%rsp)
+	movq	%rcx, 56(%rsp)
+	call	rand@PLT
+	movq	40(%rsp), %rsi
+	movq	56(%rsp), %rcx
+	movl	%eax, %edi
+	shrl	$31, %edi
+	addl	%edi, %eax
+	andl	$1, %eax
+	subl	%edi, %eax
+	movq	%rbx, %rdi
+	movb	%al, (%r15,%rbx)
+	salq	$6, %rdi
+	addq	$1, %rbx
+	movb	%al, (%rsi,%rdi)
+	movl	52(%rsp), %esi
+	cmpq	$64, %rbx
+	jne	.L4
+.L53:
+	addl	$1, 48(%rsp)
+	movl	48(%rsp), %eax
+	movq	%r12, %r13
+	movq	%rcx, %r12
+	addq	$64, %r14
+	addq	$64, %r15
+	addq	$64, %r12
+	addq	$1, %r13
+	addq	$1, 40(%rsp)
+	cmpl	$64, %eax
+	jne	.L2
+	movslq	12(%rsp), %r10
+	imulq	$10000, %r10, %r10
+	testq	%r10, %r10
+	jle	.L11
+	movq	32(%rsp), %rax
+	xorl	%r11d, %r11d
+	movl	$4, %r8d
+	vpxor	%xmm4, %xmm4, %xmm4
+	vmovdqa	.LC0(%rip), %ymm5
+	vmovdqa	.LC1(%rip), %ymm8
+	leaq	4096(%rax), %r9
+.L10:
+	vpxor	%xmm1, %xmm1, %xmm1
+	movq	32(%rsp), %rax
+	vmovdqa	%ymm1, %ymm0
+	.p2align 4,,10
+	.p2align 3
+.L8:
+	vpaddsb	(%rax), %ymm0, %ymm7
+	vpaddsb	32(%rax), %ymm1, %ymm6
+	addq	$64, %rax
+	vmovdqa	%ymm7, %ymm0
+	vmovdqa	%ymm6, %ymm1
+	cmpq	%rax, %r9
+	jne	.L8
+	movq	32(%rsp), %rdx
+	movq	24(%rsp), %rax
+	xorl	%ecx, %ecx
+	vmovdqa	%ymm7, 832(%rsp)
+	vmovdqa	%ymm6, 864(%rsp)
+	movq	16(%rsp), %rsi
+	.p2align 4,,10
+	.p2align 3
+.L9:
+	movl	%ecx, %edi
+	movl	%r8d, %ebx
+	addl	$64, %ecx
+	addq	$64, %rsi
+	sarl	$6, %edi
+	addq	$64, %rax
+	addq	$64, %rdx
+	movslq	%edi, %rdi
+	subb	832(%rsp,%rdi), %bl
+	movl	%ebx, %edi
+	vmovd	%edi, %xmm0
+	vpbroadcastb	%xmm0, %ymm0
+	vpsubsb	%ymm7, %ymm0, %ymm3
+	vpsubsb	%ymm6, %ymm0, %ymm0
+	vpaddsb	-32(%rax), %ymm0, %ymm0
+	vpand	-32(%rsi), %ymm0, %ymm0
+	vpaddsb	-64(%rax), %ymm3, %ymm3
+	vpand	-64(%rsi), %ymm3, %ymm3
+	vpminsb	%ymm0, %ymm4, %ymm1
+	vpminsb	%ymm0, %ymm5, %ymm2
+	vpcmpgtb	%ymm5, %ymm0, %ymm9
+	vmovdqa	%ymm0, -32(%rax)
+	vpcmpeqb	%ymm2, %ymm0, %ymm2
+	vpcmpeqb	%ymm1, %ymm4, %ymm1
+	vmovdqa	%ymm3, -64(%rax)
+	vpcmpgtb	%ymm5, %ymm3, %ymm10
+	vpand	%ymm2, %ymm1, %ymm1
+	vpand	-32(%rsi), %ymm8, %ymm2
+	vpand	-32(%rdx), %ymm1, %ymm1
+	vpand	%ymm9, %ymm2, %ymm2
+	vpminsb	%ymm3, %ymm5, %ymm9
+	vpor	%ymm2, %ymm1, %ymm1
+	vpcmpeqb	%ymm9, %ymm3, %ymm9
+	vpminsb	%ymm3, %ymm4, %ymm2
+	vpcmpeqb	%ymm2, %ymm4, %ymm2
+	vmovdqa	%ymm1, -32(%rdx)
+	vpand	%ymm9, %ymm2, %ymm2
+	vpand	-64(%rsi), %ymm8, %ymm9
+	vpand	-64(%rdx), %ymm2, %ymm2
+	vpand	%ymm10, %ymm9, %ymm9
+	vpor	%ymm9, %ymm2, %ymm2
+	vmovdqa	%ymm2, -64(%rdx)
+	cmpl	$4096, %ecx
+	jne	.L9
+	addl	$1, %r11d
+	cmpl	%r10d, %r11d
+	jne	.L10
+	vzeroupper
+.L11:
+	xorl	%esi, %esi
+	movl	$1, %edi
+	movl	$1, %edx
+	xorl	%ecx, %ecx
+	.p2align 4,,10
+	.p2align 3
+.L7:
+	movl	%esi, %eax
+	sall	$6, %eax
+	addl	%edx, %eax
+	addl	$1, %edx
+	cltq
+	movsbl	9088(%rsp,%rax), %eax
+	addl	%eax, %ecx
+	cmpl	$64, %edx
+	jne	.L7
+	leal	1(%rdi), %edx
+	cmpl	$63, %edi
+	je	.L54
+	movl	%edi, %esi
+	movl	%edx, %edi
+	jmp	.L7
+.L54:
+	cmpl	$64, %ecx
+	jne	.L50
+	xorl	%ecx, %ecx
+	movl	$1, %edi
+	movl	$1, %edx
+	xorl	%esi, %esi
+	.p2align 4,,10
+	.p2align 3
+.L28:
+	movl	%ecx, %eax
+	sall	$6, %eax
+	addl	%edx, %eax
+	cltq
+	cmpb	$1, 9088(%rsp,%rax)
+	jne	.L14
+	movslq	%esi, %rax
+	addl	$1, %esi
+	movl	%ecx, 64(%rsp,%rax,4)
+	movl	%edx, 320(%rsp,%rax,4)
+	movl	$0, 576(%rsp,%rax,4)
+.L14:
+	addl	$1, %edx
+	cmpl	$64, %edx
+	jne	.L28
+	leal	1(%rdi), %edx
+	cmpl	$63, %edi
+	je	.L55
+	movl	%edi, %ecx
+	movl	%edx, %edi
+	jmp	.L28
+	.p2align 4,,10
+	.p2align 3
+.L59:
+	movl	%ecx, %edx
+	movslq	%edx, %rcx
+	movl	576(%rsp,%rcx,4), %r10d
+	testl	%r10d, %r10d
+	jne	.L18
+.L61:
+	movl	%r9d, 576(%rsp,%rcx,4)
+	movl	%edx, %esi
+.L19:
+	addl	$1, %r9d
+	cmpl	$65, %r9d
+	jne	.L26
+	leaq	576(%rsp), %rax
+	movq	%rax, %rdx
+	jmp	.L23
+	.p2align 4,,10
+	.p2align 3
+.L57:
+	addq	$4, %rdx
+	cmpq	%rdx, (%rsp)
+	je	.L56
+.L23:
+	movl	(%rdx), %ecx
+	testl	%ecx, %ecx
+	jne	.L57
+.L50:
+	movl	$1, %eax
+.L1:
+	movq	13208(%rsp), %rcx
+	xorq	%fs:40, %rcx
+	jne	.L58
 	leaq	-40(%rbp), %rsp
 	popq	%rbx
 	popq	%r12
@@ -1093,11 +301,202 @@ main:
 	popq	%r14
 	popq	%r15
 	popq	%rbp
+	.cfi_remember_state
 	.cfi_def_cfa 7, 8
 	ret
+.L55:
+	.cfi_restore_state
+	movl	$2, %r9d
+	xorl	%esi, %esi
+	movl	$1, 576(%rsp)
+	leaq	64(%rsp), %r8
+	leaq	320(%rsp), %rdi
+.L26:
+	xorl	%eax, %eax
+	jmp	.L20
+	.p2align 4,,10
+	.p2align 3
+.L60:
+	cmpl	%edx, %esi
+	je	.L59
+.L18:
+	addq	$4, %rax
+	cmpq	$256, %rax
+	je	.L19
+.L20:
+	movl	(%r8,%rax), %ecx
+	movl	(%rdi,%rax), %edx
+	cmpl	%esi, %ecx
+	jne	.L60
+	movslq	%edx, %rcx
+	movl	576(%rsp,%rcx,4), %r10d
+	testl	%r10d, %r10d
+	jne	.L18
+	jmp	.L61
+.L56:
+	leaq	32(%rax), %r12
+	leaq	288(%rax), %rbx
+	leaq	.LC2(%rip), %r14
+.L25:
+	movl	$10, %edi
+	leaq	-32(%r12), %r13
+	call	putchar@PLT
+.L24:
+	movl	0(%r13), %edx
+	movq	%r14, %rsi
+	movl	$1, %edi
+	xorl	%eax, %eax
+	addq	$4, %r13
+	call	__printf_chk@PLT
+	cmpq	%r13, %r12
+	jne	.L24
+	addq	$32, %r12
+	cmpq	%r12, %rbx
+	jne	.L25
+	movl	$10, %edi
+	call	putchar@PLT
+	xorl	%eax, %eax
+	jmp	.L1
+.L58:
+	call	__stack_chk_fail@PLT
 	.cfi_endproc
-.LFE4006:
+.LFE5307:
+	.size	run, .-run
+	.section	.rodata.str1.8,"aMS",@progbits,1
+	.align 8
+.LC3:
+	.string	"%d0000 iterations per network run"
+	.section	.rodata.str1.1
+.LC5:
+	.string	"%.2f seconds: %d total runs\n"
+	.section	.text.startup,"ax",@progbits
+	.p2align 4
+	.globl	main
+	.type	main, @function
+main:
+.LFB5308:
+	.cfi_startproc
+	endbr64
+	pushq	%r12
+	.cfi_def_cfa_offset 16
+	.cfi_offset 12, -16
+	movq	%rsi, %r12
+	pushq	%rbp
+	.cfi_def_cfa_offset 24
+	.cfi_offset 6, -24
+	movl	%edi, %ebp
+	xorl	%edi, %edi
+	pushq	%rbx
+	.cfi_def_cfa_offset 32
+	.cfi_offset 3, -32
+	movl	$10, %ebx
+	call	time@PLT
+	movq	%rax, %rdi
+	call	srand@PLT
+	cmpl	$2, %ebp
+	je	.L69
+.L63:
+	movl	%ebx, %edx
+	leaq	.LC3(%rip), %rsi
+	movl	$1, %edi
+	xorl	%eax, %eax
+	call	__printf_chk@PLT
+	movl	$1, %r12d
+	call	clock@PLT
+	movq	%rax, %rbp
+	jmp	.L64
+	.p2align 4,,10
+	.p2align 3
+.L65:
+	addl	$1, %r12d
+.L64:
+	movl	%ebx, %edi
+	call	run
+	testl	%eax, %eax
+	jne	.L65
+	call	clock@PLT
+	vxorps	%xmm0, %xmm0, %xmm0
+	movl	%r12d, %edx
+	leaq	.LC5(%rip), %rsi
+	subq	%rbp, %rax
+	movl	$1, %edi
+	vcvtsi2sdq	%rax, %xmm0, %xmm0
+	movl	$1, %eax
+	vdivsd	.LC4(%rip), %xmm0, %xmm0
+	call	__printf_chk@PLT
+	popq	%rbx
+	.cfi_remember_state
+	.cfi_def_cfa_offset 24
+	xorl	%eax, %eax
+	popq	%rbp
+	.cfi_def_cfa_offset 16
+	popq	%r12
+	.cfi_def_cfa_offset 8
+	ret
+.L69:
+	.cfi_restore_state
+	movq	8(%r12), %rdi
+	movl	$10, %edx
+	xorl	%esi, %esi
+	movl	$99, %ebx
+	call	strtol@PLT
+	cmpl	$99, %eax
+	jg	.L63
+	movq	8(%r12), %rdi
+	movl	$10, %edx
+	xorl	%esi, %esi
+	call	strtol@PLT
+	movl	%eax, %ebx
+	jmp	.L63
+	.cfi_endproc
+.LFE5308:
 	.size	main, .-main
+	.section	.rodata.cst32,"aM",@progbits,32
+	.align 32
+.LC0:
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.byte	3
+	.align 32
+.LC1:
+	.quad	72340172838076673
+	.quad	72340172838076673
+	.quad	72340172838076673
+	.quad	72340172838076673
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC4:
+	.long	0
+	.long	1093567616
 	.ident	"GCC: (Ubuntu 9.3.0-10ubuntu2) 9.3.0"
 	.section	.note.GNU-stack,"",@progbits
 	.section	.note.gnu.property,"a"
