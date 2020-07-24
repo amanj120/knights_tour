@@ -11,3 +11,7 @@ for j in range(250):
 		print("{:>3}".format(i), end='\r')
 		cmd = "./runO3 {} {} >> out.txt".format(randint(0,1<<64), i)
 		os.system(cmd)
+
+'''
+
+'''
