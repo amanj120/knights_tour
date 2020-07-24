@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <immintrin.h>
 #include <time.h>
+#include <sys/time.h>
 
 #define at(i,j) [(i*64+j)]
 
@@ -16,7 +17,11 @@
 #define OR _mm256_or_si256
 
 int main() {
-	srand(((long)(clock() * 1000))); 
+
+	struct timeval tp;
+	gettimeofday(&tp, NULL);
+	long int ms = tp.tv_sec * 1000 + tp.tv_usec / 1000;
+	srand(ms); 
 
 	int8_t d[4096] 	__attribute__ ((aligned (32)));
 	int8_t u[4096] 	__attribute__ ((aligned (32)));
@@ -36,15 +41,15 @@ int main() {
 	int failed_runs = 1;
 
 	clock_t start = clock();
-	while(1) {
+	while (1) {
 		edge_idx = 0;
 		cur = 0;
 		edge_count = 0;
 		has_0 = 0;
 		failed_runs++;
 		
-		for(int i = 0; i < 64; i++) { //initialize
-			for(int j = 0; j < 64; j++) { 
+		for (int i = 0; i < 64; i++) { //initialize
+			for (int j = 0; j < 64; j++) { 
 				int x = (i/8)-(j/8);
 				int y = (i%8)-(j%8);
 				d at(i,j) = 0;
@@ -60,11 +65,10 @@ int main() {
 			}
 		}
 
-		// long max_num_iterations = (long)(N) * 10000l;
 		for (int x = 0x4000; x < 0xfa57; x++) { //~47,700
 			sjl 		= SET(0);
 			sjr 		= SET(0);
-			for (int i = 0; i < 0x1000; i+=0x80) { //loop unrolling may be unnecessary
+			for (int i = 0; i < 0x1000; i+=0x80) {
 				v_l 	= LOAD((__m256i *)(v+i));
 				v_r 	= LOAD((__m256i *)(v+i+0x20));
 				sjl 	= ADD(v_l, sjl);
@@ -77,39 +81,52 @@ int main() {
 			STORE((__m256i_u *)(s), sjl);
 			STORE((__m256i_u *)(s+32), sjr);
 
-			for(int i=0; i<0x1000; i+=0x40) {
+			for (int i=0; i<0x1000; i+=0x40) {
 				ft 		= SET((int8_t)(4 - s[i/64]));
 
-				dil 	= LOAD((__m256i *)(d+i)); //for the *d[i][j]
-				uil_pre = LOAD((__m256i *)(u+i)); //for the -s[j]
-				uil 	= SUB(ft, sjl);
-				uil 	= ADD(uil_pre, uil);
-				uil 	= AND(dil, uil);
-				vil 	= LOAD((__m256i *)(v+i)); //for the -s[j]
-				uilgt3 	= CMPGT(uil, three); // filled with 0xff if u[i] > 3, else 0x00
-				uilfc 	= AND(uil, fc);
-				uilin 	= CMPEQ(uilfc, zero);
-				keepvl 	= AND(uilin, vil);
-				onevl_t = AND(uilgt3, dil);
-				onevl 	= AND(onevl_t, one);
-				newvl 	= OR(keepvl, onevl);
-				STORE((__m256i_u *)(v+i), newvl);
-				STORE((__m256i_u *)(u+i), uil);
-
+				dil 	= LOAD((__m256i *)(d+i));
 				dir 	= LOAD((__m256i *)(d+i+0x20));
+
+				uil_pre = LOAD((__m256i *)(u+i));
 				uir_pre = LOAD((__m256i *)(u+i+0x20));
+				
+				uil 	= SUB(ft, sjl);
 				uir 	= SUB(ft, sjr);
+				
+				uil 	= ADD(uil_pre, uil);
 				uir 	= ADD(uir_pre, uir);
+				
+				uil 	= AND(dil, uil);
 				uir 	= AND(dir, uir);
+				
+				vil 	= LOAD((__m256i *)(v+i));
 				vir 	= LOAD((__m256i *)(v+i+0x20));
+				
+				uilgt3 	= CMPGT(uil, three);
 				uirgt3 	= CMPGT(uir, three);
+				
+				uilfc 	= AND(uil, fc);
 				uirfc 	= AND(uir, fc);
+				
+				uilin 	= CMPEQ(uilfc, zero);
 				uirin 	= CMPEQ(uirfc, zero);
+				
+				keepvl 	= AND(uilin, vil);
 				keepvr 	= AND(uirin, vir);
+				
+				onevl_t = AND(uilgt3, dil);
 				onevr_t = AND(uirgt3, dir);
+				
+				onevl 	= AND(onevl_t, one);
 				onevr 	= AND(onevr_t, one);
+				
+				newvl 	= OR(keepvl, onevl);
 				newvr 	= OR(keepvr, onevr);
+				
+				STORE((__m256i_u *)(v+i), newvl);
 				STORE((__m256i_u *)(v+i+0x20), newvr);
+				
+				STORE((__m256i_u *)(u+i), uil);
 				STORE((__m256i_u *)(u+i+0x20), uir);
 			}
 		}
@@ -129,7 +146,6 @@ int main() {
 				if (v at(i,j) == 1) {
 					st[edge_idx] = i;
 					en[edge_idx] = j;
-					ans[edge_idx] = 0;
 					edge_idx++;
 				}
 			}
@@ -152,17 +168,18 @@ int main() {
 			}
 		}
 
-		if (sol_sum != 2080) //1+...64
+		if (sol_sum != 2080 /*1+...+64*/ )
 			continue;
 
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				printf("%2d ", ans[i*8+j]);
+				printf("%2d ", ans[i*8+j] - 1);
 			}
 			printf("\n");			
 		}
 		break;
 	}
 	clock_t end = clock();
-	printf("%.3f s | %d runs\n", (((double) (end - start)) / CLOCKS_PER_SEC), failed_runs);
+	int time_taken = (int)(((end-start)*1000)/CLOCKS_PER_SEC);
+	printf("%d ms | %d runs\n", time_taken, failed_runs);
 }
