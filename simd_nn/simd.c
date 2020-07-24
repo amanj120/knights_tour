@@ -74,8 +74,8 @@ int main() {
 				sjl 	= ADD(v_l, sjl);
 				sjr  	= ADD(v_r, sjr);
 			}
-						  STORE((__m256i_u *)(s), sjl);
-						  STORE((__m256i_u *)(s+32), sjr);
+			STORE((__m256i_u *)(s), sjl);
+			STORE((__m256i_u *)(s+32), sjr);
 
 			for(int i=0; i<0x1000; i+=0x40) {
 				ft 		= SET((int8_t)(4 - s[i/64]));
@@ -93,8 +93,8 @@ int main() {
 				onevl_t = AND(uilgt3, dil);
 				onevl 	= AND(onevl_t, one);
 				newvl 	= OR(keepvl, onevl);
-						  STORE((__m256i_u *)(v+i), newvl);
-						  STORE((__m256i_u *)(u+i), uil);
+				STORE((__m256i_u *)(v+i), newvl);
+				STORE((__m256i_u *)(u+i), uil);
 
 				dir 	= LOAD((__m256i *)(d+i+0x20));
 				uir_pre = LOAD((__m256i *)(u+i+0x20));
@@ -109,8 +109,8 @@ int main() {
 				onevr_t = AND(uirgt3, dir);
 				onevr 	= AND(onevr_t, one);
 				newvr 	= OR(keepvr, onevr);
-						  STORE((__m256i_u *)(v+i+0x20), newvr);
-						  STORE((__m256i_u *)(u+i+0x20), uir);
+				STORE((__m256i_u *)(v+i+0x20), newvr);
+				STORE((__m256i_u *)(u+i+0x20), uir);
 			}
 		}
 
