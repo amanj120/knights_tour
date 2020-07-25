@@ -65,7 +65,7 @@ int main() {
 			}
 		}
 
-		for (int x = 0x4000; x < 0xfa57; x++) { //~47,700
+		for (int x = 0; x < 0xb000; x++) { //45056
 			sjl 		= SET(0);
 			sjr 		= SET(0);
 			for (int i = 0; i < 0x1000; i+=0x80) {
@@ -181,5 +181,7 @@ int main() {
 	}
 	clock_t end = clock();
 	int time_taken = (int)(((end-start)*1000)/CLOCKS_PER_SEC);
-	printf("%d ms | %d runs\n", time_taken, failed_runs);
+	// double per_iter = ((double)(end-start)*100000000)/((double)(47703) * failed_runs * CLOCKS_PER_SEC);
+	// printf("%d ms %d runs %.1f ns per iter\n", time_taken, failed_runs, per_iter);
+	printf("%d ms %d runs\n", time_taken, failed_runs);
 }

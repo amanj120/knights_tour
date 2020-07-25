@@ -1,0 +1,41 @@
+td {
+	font-size: 0px;
+	height: 11.5%;
+	width: 11.5%;
+	text-align: center;
+	vertical-align: middle;
+	position: relative;
+	font-family: 'Work Sans';
+	border-radius: min(4vh,4vw);
+	border: min(1vh, 1vw) solid #7a637f;
+}
+.black {
+	background-color: #49324e;
+	color: #98879c;
+}
+.white {
+	background-color: #98879c;
+	color: #49324e;
+}
+html {
+  overflow:   scroll;
+}
+body {
+	background-color: #7a637f; 
+	height: 15000px;
+}
+table {
+	width: min(95vw, 95vh);
+	height: min(95vw, 95vh);
+
+	vertical-align: middle;
+	border-collapse:separate; 
+	align-content: center;
+	align-self: center;
+	margin-left: auto;
+	margin-right: auto;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	position: fixed;
+}
