@@ -5,20 +5,21 @@ td {
 	text-align: center;
 	vertical-align: middle;
 	position: relative;
-	border-radius: min(.25vh,.25vw);
-	border: min(0.25vh, 0.25vw) solid #c1a695;
+	border-radius: min(1vh,1vw);
+	border: min(0.5vh, 0.5vw) solid #c1a695;
 	opacity: 0;
 }
 .black {
 	background-color: #765a4a;
 	color: #edd8cd;
+	/*background:  radial-gradient(transparent, black);*/
+	/*box-shadow: inset box-shadow: inset 0px 0px 100px black;*/
 }
 .white {
 	background-color: #edd8cd;
 	color: #765a4a;
 }
 .middle_fade {
-	position: fixed;
 	align-content: center;
 	vertical-align: middle;
 	top: 50%;
@@ -29,9 +30,10 @@ td {
 body {
 	background-color: #c1a695; 
 	height: 28000px;
-	font-family: 'Lato';
+	font-family: 'Josefin Slab';
 }
 table {
+	position: fixed;
 	width: min(95vw, 95vh);
 	height: min(95vw, 95vh);
 }
@@ -39,5 +41,5 @@ h1 {
 	text-align: center;
 	font-size: max(5vw, 5vh);
 	color: #765a4a;
+	position: absolute;
 }
-
