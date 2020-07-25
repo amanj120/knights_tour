@@ -5,37 +5,39 @@ td {
 	text-align: center;
 	vertical-align: middle;
 	position: relative;
-	font-family: 'Work Sans';
-	border-radius: min(4vh,4vw);
-	border: min(1vh, 1vw) solid #7a637f;
+	border-radius: min(.25vh,.25vw);
+	border: min(0.25vh, 0.25vw) solid #c1a695;
+	opacity: 0;
 }
 .black {
-	background-color: #49324e;
-	color: #98879c;
+	background-color: #765a4a;
+	color: #edd8cd;
 }
 .white {
-	background-color: #98879c;
-	color: #49324e;
+	background-color: #edd8cd;
+	color: #765a4a;
 }
-html {
-  overflow:   scroll;
+.middle_fade {
+	position: fixed;
+	align-content: center;
+	vertical-align: middle;
+	top: 50%;
+	left: 50%;
+	align-self: center;
+	transform: translate(-50%, -50%);
 }
 body {
-	background-color: #7a637f; 
-	height: 15000px;
+	background-color: #c1a695; 
+	height: 28000px;
+	font-family: 'Lato';
 }
 table {
 	width: min(95vw, 95vh);
 	height: min(95vw, 95vh);
-
-	vertical-align: middle;
-	border-collapse:separate; 
-	align-content: center;
-	align-self: center;
-	margin-left: auto;
-	margin-right: auto;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	position: fixed;
 }
+h1 {
+	text-align: center;
+	font-size: max(5vw, 5vh);
+	color: #765a4a;
+}
+

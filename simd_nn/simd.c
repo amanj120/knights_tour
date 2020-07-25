@@ -16,8 +16,7 @@
 #define AND _mm256_and_si256
 #define OR _mm256_or_si256
 
-int main() {
-
+void run(int ret[]) { //66 ints, first 64 are sol, last 2 are ms taken and nn runs
 	struct timeval tp;
 	gettimeofday(&tp, NULL);
 	long int ms = tp.tv_sec * 1000 + tp.tv_usec / 1000;
@@ -171,17 +170,25 @@ int main() {
 		if (sol_sum != 2080 /*1+...+64*/ )
 			continue;
 
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				printf("%2d ", ans[i*8+j] - 1);
-			}
-			printf("\n");			
+		for (int i = 0; i < 64; i++) {
+			ret[i] = ans[i];
 		}
 		break;
 	}
 	clock_t end = clock();
 	int time_taken = (int)(((end-start)*1000)/CLOCKS_PER_SEC);
-	// double per_iter = ((double)(end-start)*100000000)/((double)(47703) * failed_runs * CLOCKS_PER_SEC);
-	// printf("%d ms %d runs %.1f ns per iter\n", time_taken, failed_runs, per_iter);
-	printf("%d ms %d runs\n", time_taken, failed_runs);
+	ret[64] = time_taken;
+	ret[65] = failed_runs;
 }
+
+int main() {
+	int ret[66];
+	run(ret);
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			printf("%2d ",ret[i*8+j]);
+		}
+		printf("\n");
+	}
+	printf("%d ms %d runs\n", ret[64], ret[65]);
+}	
