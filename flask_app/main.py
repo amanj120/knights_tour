@@ -235,6 +235,15 @@ table {
 	width: min(95vw, 95vh);
 	height: min(95vw, 95vh);
 }
+h1 {
+	text-align: center;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: max(5vw, 5vh);
+	color: #765a4a;
+	position: absolute;
+}
 	</style>
 </head>
 <body>
@@ -243,7 +252,7 @@ table {
 
 bottom = '''</table>
 	<a href="/info">
-		<p id="title">Knight's Tour</p>
+		<h1 id="title"><u>Knight's Tour</u></h1>
 	</a>
 </body>
 '''
@@ -280,6 +289,14 @@ table {
 	position: fixed;
 	width: min(95vw, 95vh);
 	height: min(95vw, 95vh);
+}
+h1 {
+	text-align: center;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: max(5vw, 5vh);
+	position: absolute;
 }
 a {
 	color: #765a4a;
