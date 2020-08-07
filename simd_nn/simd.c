@@ -56,8 +56,8 @@ void run(int ret[]) { //66 ints, first 64 are sol, last 2 are ms taken and nn ru
 				u at(i,j) = 0;
 				s[i] = 0;
 				if (((x*x) + (y*y)) == 5) {
-					d at(i,j) = 0xFF;
-					d at(i,j) = 0xFF;
+					d at(i,j) = 0x01;
+					d at(i,j) = 0x01;
 					v at(i,j) = rand()%2;
 					v at(j,i) = v at(i,j);
 				}
@@ -67,15 +67,11 @@ void run(int ret[]) { //66 ints, first 64 are sol, last 2 are ms taken and nn ru
 		for (int x = 0; x < 0xb000; x++) { //45056
 			sjl 		= SET(0);
 			sjr 		= SET(0);
-			for (int i = 0; i < 0x1000; i+=0x80) {
+			for (int i = 0; i < 0x1000; i+=0x40) {
 				v_l 	= LOAD((__m256i *)(v+i));
 				v_r 	= LOAD((__m256i *)(v+i+0x20));
 				sjl 	= ADD(v_l, sjl);
 				sjr 	= ADD(v_r, sjr);
-				v_l 	= LOAD((__m256i *)(v+i+0x40));
-				v_r 	= LOAD((__m256i *)(v+i+0x60));
-				sjl 	= ADD(v_l, sjl);
-				sjr  	= ADD(v_r, sjr);
 			}
 			STORE((__m256i_u *)(s), sjl);
 			STORE((__m256i_u *)(s+32), sjr);
@@ -88,6 +84,9 @@ void run(int ret[]) { //66 ints, first 64 are sol, last 2 are ms taken and nn ru
 
 				uil_pre = LOAD((__m256i *)(u+i));
 				uir_pre = LOAD((__m256i *)(u+i+0x20));
+
+				vil 	= LOAD((__m256i *)(v+i));
+				vir 	= LOAD((__m256i *)(v+i+0x20));
 				
 				uil 	= SUB(ft, sjl);
 				uir 	= SUB(ft, sjr);
@@ -95,11 +94,8 @@ void run(int ret[]) { //66 ints, first 64 are sol, last 2 are ms taken and nn ru
 				uil 	= ADD(uil_pre, uil);
 				uir 	= ADD(uir_pre, uir);
 				
-				uil 	= AND(dil, uil);
-				uir 	= AND(dir, uir);
-				
-				vil 	= LOAD((__m256i *)(v+i));
-				vir 	= LOAD((__m256i *)(v+i+0x20));
+				// uil 	= AND(dil, uil);
+				// uir 	= AND(dir, uir);
 				
 				uilgt3 	= CMPGT(uil, three);
 				uirgt3 	= CMPGT(uir, three);
@@ -112,13 +108,16 @@ void run(int ret[]) { //66 ints, first 64 are sol, last 2 are ms taken and nn ru
 				
 				keepvl 	= AND(uilin, vil);
 				keepvr 	= AND(uirin, vir);
+
+				// onevl_t = AND(uilgt3, dil);
+				// onevr_t = AND(uirgt3, dir);
 				
-				onevl_t = AND(uilgt3, dil);
-				onevr_t = AND(uirgt3, dir);
+				// onevl 	= AND(onevl_t, one);
+				// onevr 	= AND(onevr_t, one);
 				
-				onevl 	= AND(onevl_t, one);
-				onevr 	= AND(onevr_t, one);
-				
+				onevl = AND(uilgt3, dil);
+				onevr = AND(uirgt3, dir);
+
 				newvl 	= OR(keepvl, onevl);
 				newvr 	= OR(keepvr, onevr);
 				
@@ -167,7 +166,7 @@ void run(int ret[]) { //66 ints, first 64 are sol, last 2 are ms taken and nn ru
 			}
 		}
 
-		if (sol_sum != 2080 /*1+...+64*/ )
+		if (sol_sum != 2080) //1+...+64
 			continue;
 
 		for (int i = 0; i < 64; i++) {
@@ -190,5 +189,5 @@ int main() {
 		}
 		printf("\n");
 	}
-	printf("%d ms %d runs\n", ret[64], ret[65]);
+	printf("%d ms %d runs %f ms/run\n", ret[64], ret[65], (double)(ret[64])/(double)(ret[65]));
 }	
