@@ -1,5 +1,8 @@
 # Knights Tour
 
+Website: http://knights-tour-nn.ue.r.appspot.com/
+
+
 based off of [this paper](https://www.researchgate.net/publication/222346901_Neural_network_computing_for_knight%27s_tour_problems)
 
 Check out `simd_nn/simd3.c` to check out how I optimized the solution using Intel Intrinsics.
