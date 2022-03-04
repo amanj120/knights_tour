@@ -170,9 +170,10 @@ void run(int ret[]) { //66 ints, first 64 are sol, last 2 are ms taken and nn ru
 int main() { 
 	int ret[66];
 	run(ret);
+	int offset = rand() % 64;
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
-			printf("%2d ",ret[i*8+j]);
+			printf("%2d ",(((ret[i*8+j] + offset)%64) + 1));
 		}
 		printf("\n");
 	}
